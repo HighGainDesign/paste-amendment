@@ -15,6 +15,10 @@ cleanup() {
     pluginkit -r "$APP/Contents/PlugIns/Paste Amendment Extension.appex" >/dev/null 2>&1 || true
     "$LSREGISTER" -u "$APP" >/dev/null 2>&1 || true
   fi
+  if [[ -d "$BUILD_DIR/dmg/Paste Amendment.app" ]]; then
+    pluginkit -r "$BUILD_DIR/dmg/Paste Amendment.app/Contents/PlugIns/Paste Amendment Extension.appex" >/dev/null 2>&1 || true
+    "$LSREGISTER" -u "$BUILD_DIR/dmg/Paste Amendment.app" >/dev/null 2>&1 || true
+  fi
   rm -rf "$BUILD_DIR"
 }
 trap cleanup EXIT
@@ -46,8 +50,28 @@ if [[ -n "$NOTARY_PROFILE" ]]; then
   spctl --assess --type execute --verbose=2 "$APP"
 fi
 ditto -c -k --keepParent --norsrc --noextattr "$APP" "$ROOT_DIR/output/Paste Amendment.zip"
+mkdir -p "$BUILD_DIR/dmg"
+ditto --norsrc --noextattr "$APP" "$BUILD_DIR/dmg/Paste Amendment.app"
+ln -s /Applications "$BUILD_DIR/dmg/Applications"
+cp "$ROOT_DIR/LICENSE" "$BUILD_DIR/dmg/LICENSE.txt"
+DMG="$BUILD_DIR/Paste Amendment.dmg"
+hdiutil create -volname 'Paste Amendment' -srcfolder "$BUILD_DIR/dmg" -fs HFS+ -format UDZO "$DMG"
+codesign --sign "$SIGNING_IDENTITY" --timestamp "$DMG"
+codesign --verify --strict "$DMG"
+if [[ -n "$NOTARY_PROFILE" ]]; then
+  xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait --timeout 5m \
+    > "$ROOT_DIR/output/dmg-notarization.log" 2>&1
+  cat "$ROOT_DIR/output/dmg-notarization.log"
+  if ! /usr/bin/grep -q 'status: Accepted' "$ROOT_DIR/output/dmg-notarization.log"; then
+    echo 'DMG notarization was not accepted; it will not be distributed.' >&2
+    exit 1
+  fi
+  xcrun stapler staple "$DMG"
+  xcrun stapler validate "$DMG"
+fi
+ditto --norsrc --noextattr "$DMG" "$ROOT_DIR/output/Paste Amendment.dmg"
 echo "Built and verified: $APP"
-echo "Packaged: $ROOT_DIR/output/Paste Amendment.zip"
+echo "Packaged: $ROOT_DIR/output/Paste Amendment.dmg"
 if [[ "$MODE" != --build-only ]]; then
   INSTALLED_APP="/Applications/Paste Amendment.app"
   ditto --norsrc --noextattr "$APP" "$INSTALLED_APP"

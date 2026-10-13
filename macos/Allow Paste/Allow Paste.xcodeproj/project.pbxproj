@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+        E00000000000000000000003 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E00000000000000000000004 /* LICENSE */; };
         E00000000000000000000001 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = E00000000000000000000002 /* icons */; };
 		173EB53D307DDDF300585BC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EB53C307DDDF300585BC3 /* AppDelegate.swift */; };
 		173EB541307DDDF300585BC3 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 173EB53F307DDDF300585BC3 /* Main.html */; };
@@ -47,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+        E00000000000000000000004 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = SOURCE_ROOT; };
         E00000000000000000000002 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../extension/icons; sourceTree = "<group>"; };
 		173EB539307DDDF300585BC3 /* Allow Paste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Paste Amendment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		173EB53C307DDDF300585BC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		173EB53E307DDDF300585BC3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+                E00000000000000000000004 /* LICENSE */,
 				173EB53F307DDDF300585BC3 /* Main.html */,
 				173EB542307DDDF300585BC3 /* Icon.png */,
 				173EB544307DDDF300585BC3 /* Style.css */,
@@ -232,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+                E00000000000000000000003 /* LICENSE in Resources */,
 				173EB543307DDDF300585BC3 /* Icon.png in Resources */,
 				173EB54C307DDDF300585BC3 /* Main.storyboard in Resources */,
 				173EB547307DDDF300585BC3 /* Script.js in Resources */,

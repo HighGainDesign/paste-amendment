@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Allow Paste
+//  Paste Amendment
 //
 //  Created by Anand Mandapati on 10/12/26.
 //

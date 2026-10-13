@@ -1,0 +1,126 @@
+name: Signed DMG release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing vX.Y.Z tag to release
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.repository == 'HighGainDesign/paste-amendment'
+    runs-on: macos-26
+    timeout-minutes: 60
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    env:
+      PASTE_AMENDMENT_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+    steps:
+      - name: Check out release source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate version and source
+        id: version
+        env:
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 2
+          version=$(python3 -c 'import json; print(json.load(open("extension/manifest.json"))["version"])')
+          [[ "$RELEASE_TAG" == "v$version" ]] || { echo 'Tag must match manifest version.' >&2; exit 1; }
+          git merge-base --is-ancestor HEAD "origin/$DEFAULT_BRANCH"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          xcodebuild -version
+
+      - name: Test native paste before loading credentials
+        env:
+          PASTE_AMENDMENT_TEST_CHANNEL: chromium
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/browser-tests" --no-audit --no-fund playwright@1.62.1
+          "$RUNNER_TEMP/browser-tests/node_modules/.bin/playwright" install chromium
+          NODE_PATH="$RUNNER_TEMP/browser-tests/node_modules" node tests/paste.cjs
+
+      - name: Configure signing and notarization
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.DEVELOPER_ID_P12_BASE64 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.DEVELOPER_ID_P12_PASSWORD }}
+          NOTARY_KEY_BASE64: ${{ secrets.NOTARY_API_KEY_BASE64 }}
+          NOTARY_KEY_ID: ${{ secrets.NOTARY_API_KEY_ID }}
+          NOTARY_ISSUER_ID: ${{ secrets.NOTARY_API_ISSUER_ID }}
+        run: bash script/ci_signing_setup.sh
+
+      - name: Build signed and notarized DMG
+        env:
+          PASTE_AMENDMENT_NOTARY_PROFILE: PasteAmendment-CI
+          PASTE_AMENDMENT_BUILD_NUMBER: ${{ github.run_number }}
+        run: bash script/build_and_run.sh --build-only
+
+      - name: Remove signing material
+        if: always()
+        run: bash script/ci_signing_cleanup.sh
+
+      - name: Prepare release files
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          dmg="Paste-Amendment-$RELEASE_VERSION.dmg"
+          cp 'output/Paste Amendment.dmg' "dist/$dmg"
+          codesign --verify --strict "dist/$dmg"
+          xcrun stapler validate "dist/$dmg"
+          (cd dist; shasum -a 256 "$dmg" > "$dmg.sha256")
+
+      - name: Save DMG and checksum
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: signed-dmg
+          path: |
+            dist/*.dmg
+            dist/*.dmg.sha256
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download verified release files
+        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8.0.0
+        with:
+          name: signed-dmg
+          path: dist
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          set -euo pipefail
+          dmg="Paste-Amendment-$RELEASE_VERSION.dmg"
+          (cd dist; sha256sum -c "$dmg.sha256")
+          gh release create "$RELEASE_TAG" "dist/$dmg" "dist/$dmg.sha256" \
+            --verify-tag --title "Paste Amendment $RELEASE_VERSION" --latest \
+            --notes 'Download the DMG, drag Paste Amendment into Applications, open it once, then enable it in Safari Settings → Extensions. Signed and notarized; no unsigned-extension setting needed. Requires macOS 13 or newer.'

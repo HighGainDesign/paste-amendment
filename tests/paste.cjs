@@ -7,7 +7,8 @@ const path = require('node:path');
 const http = require('node:http');
 
 (async () => {
-  const browser = await chromium.launch({ channel: 'chrome', headless: true });
+  const channel = process.env.PASTE_AMENDMENT_TEST_CHANNEL === 'chromium' ? undefined : 'chrome';
+  const browser = await chromium.launch({ channel, headless: true });
   const server = http.createServer((req, res) => {
     const fixture = req.url === '/frame.html' ? 'frame.html' : 'blocked-paste.html';
     res.setHeader('Content-Type', 'text/html; charset=utf-8');

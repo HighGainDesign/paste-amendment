@@ -17,7 +17,7 @@
 		173EB549307DDDF300585BC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EB548307DDDF300585BC3 /* ViewController.swift */; };
 		173EB54C307DDDF300585BC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 173EB54A307DDDF300585BC3 /* Main.storyboard */; };
 		173EB54E307DDDF400585BC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 173EB54D307DDDF400585BC3 /* Assets.xcassets */; };
-		173EB555307DDDF400585BC3 /* Allow Paste Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 173EB554307DDDF400585BC3 /* Allow Paste Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		173EB555307DDDF400585BC3 /* Paste Amendment Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 173EB554307DDDF400585BC3 /* Paste Amendment Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		173EB55A307DDDF400585BC3 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EB559307DDDF400585BC3 /* SafariWebExtensionHandler.swift */; };
 		173EB568307DDDF400585BC3 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 173EB566307DDDF400585BC3 /* manifest.json */; };
 		173EB569307DDDF400585BC3 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 173EB567307DDDF400585BC3 /* content.js */; };
@@ -29,7 +29,7 @@
 			containerPortal = 173EB531307DDDF300585BC3 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 173EB553307DDDF400585BC3;
-			remoteInfo = "Allow Paste Extension";
+			remoteInfo = "Paste Amendment Extension";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -40,7 +40,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				173EB555307DDDF400585BC3 /* Allow Paste Extension.appex in Embed Foundation Extensions */,
+				173EB555307DDDF400585BC3 /* Paste Amendment Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,7 +50,7 @@
 /* Begin PBXFileReference section */
         E00000000000000000000004 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = SOURCE_ROOT; };
         E00000000000000000000002 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../extension/icons; sourceTree = "<group>"; };
-		173EB539307DDDF300585BC3 /* Allow Paste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Paste Amendment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		173EB539307DDDF300585BC3 /* Paste Amendment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Paste Amendment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		173EB53C307DDDF300585BC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		173EB540307DDDF300585BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
 		173EB542307DDDF300585BC3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		173EB54B307DDDF300585BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		173EB54D307DDDF400585BC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		173EB54F307DDDF400585BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		173EB554307DDDF400585BC3 /* Allow Paste Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Paste Amendment Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		173EB554307DDDF400585BC3 /* Paste Amendment Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Paste Amendment Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		173EB559307DDDF400585BC3 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		173EB55B307DDDF400585BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		173EB566307DDDF400585BC3 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../extension/manifest.json; sourceTree = "<group>"; };
@@ -88,8 +88,8 @@
 		173EB530307DDDF300585BC3 = {
 			isa = PBXGroup;
 			children = (
-				173EB53B307DDDF300585BC3 /* Allow Paste */,
-				173EB558307DDDF400585BC3 /* Allow Paste Extension */,
+				173EB53B307DDDF300585BC3 /* Paste Amendment */,
+				173EB558307DDDF400585BC3 /* Paste Amendment Extension */,
 				173EB53A307DDDF300585BC3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,13 +97,13 @@
 		173EB53A307DDDF300585BC3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				173EB539307DDDF300585BC3 /* Allow Paste.app */,
-				173EB554307DDDF400585BC3 /* Allow Paste Extension.appex */,
+				173EB539307DDDF300585BC3 /* Paste Amendment.app */,
+				173EB554307DDDF400585BC3 /* Paste Amendment Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		173EB53B307DDDF300585BC3 /* Allow Paste */ = {
+		173EB53B307DDDF300585BC3 /* Paste Amendment */ = {
 			isa = PBXGroup;
 			children = (
 				173EB53C307DDDF300585BC3 /* AppDelegate.swift */,
@@ -113,7 +113,7 @@
 				173EB54F307DDDF400585BC3 /* Info.plist */,
 				173EB53E307DDDF300585BC3 /* Resources */,
 			);
-			path = "Allow Paste";
+			path = "Paste Amendment";
 			sourceTree = "<group>";
 		};
 		173EB53E307DDDF300585BC3 /* Resources */ = {
@@ -128,14 +128,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		173EB558307DDDF400585BC3 /* Allow Paste Extension */ = {
+		173EB558307DDDF400585BC3 /* Paste Amendment Extension */ = {
 			isa = PBXGroup;
 			children = (
 				173EB565307DDDF400585BC3 /* Resources */,
 				173EB559307DDDF400585BC3 /* SafariWebExtensionHandler.swift */,
 				173EB55B307DDDF400585BC3 /* Info.plist */,
 			);
-			path = "Allow Paste Extension";
+			path = "Paste Amendment Extension";
 			sourceTree = "<group>";
 		};
 		173EB565307DDDF400585BC3 /* Resources */ = {
@@ -146,15 +146,15 @@
                 E00000000000000000000002 /* icons */,
 			);
 			name = Resources;
-			path = "Allow Paste Extension";
+			path = "Paste Amendment Extension";
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		173EB538307DDDF300585BC3 /* Allow Paste */ = {
+		173EB538307DDDF300585BC3 /* Paste Amendment */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 173EB562307DDDF400585BC3 /* Build configuration list for PBXNativeTarget "Allow Paste" */;
+			buildConfigurationList = 173EB562307DDDF400585BC3 /* Build configuration list for PBXNativeTarget "Paste Amendment" */;
 			buildPhases = (
 				173EB535307DDDF300585BC3 /* Sources */,
 				173EB536307DDDF300585BC3 /* Frameworks */,
@@ -166,16 +166,16 @@
 			dependencies = (
 				173EB557307DDDF400585BC3 /* PBXTargetDependency */,
 			);
-			name = "Allow Paste";
+			name = "Paste Amendment";
 			packageProductDependencies = (
 			);
-			productName = "Allow Paste";
-			productReference = 173EB539307DDDF300585BC3 /* Allow Paste.app */;
+			productName = "Paste Amendment";
+			productReference = 173EB539307DDDF300585BC3 /* Paste Amendment.app */;
 			productType = "com.apple.product-type.application";
 		};
-		173EB553307DDDF400585BC3 /* Allow Paste Extension */ = {
+		173EB553307DDDF400585BC3 /* Paste Amendment Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 173EB55E307DDDF400585BC3 /* Build configuration list for PBXNativeTarget "Allow Paste Extension" */;
+			buildConfigurationList = 173EB55E307DDDF400585BC3 /* Build configuration list for PBXNativeTarget "Paste Amendment Extension" */;
 			buildPhases = (
 				173EB550307DDDF400585BC3 /* Sources */,
 				173EB551307DDDF400585BC3 /* Frameworks */,
@@ -185,11 +185,11 @@
 			);
 			dependencies = (
 			);
-			name = "Allow Paste Extension";
+			name = "Paste Amendment Extension";
 			packageProductDependencies = (
 			);
-			productName = "Allow Paste Extension";
-			productReference = 173EB554307DDDF400585BC3 /* Allow Paste Extension.appex */;
+			productName = "Paste Amendment Extension";
+			productReference = 173EB554307DDDF400585BC3 /* Paste Amendment Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -210,7 +210,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 173EB534307DDDF300585BC3 /* Build configuration list for PBXProject "Allow Paste" */;
+			buildConfigurationList = 173EB534307DDDF300585BC3 /* Build configuration list for PBXProject "Paste Amendment" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -224,8 +224,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				173EB538307DDDF300585BC3 /* Allow Paste */,
-				173EB553307DDDF400585BC3 /* Allow Paste Extension */,
+				173EB538307DDDF300585BC3 /* Paste Amendment */,
+				173EB553307DDDF400585BC3 /* Paste Amendment Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -280,7 +280,7 @@
 /* Begin PBXTargetDependency section */
 		173EB557307DDDF400585BC3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 173EB553307DDDF400585BC3 /* Allow Paste Extension */;
+			target = 173EB553307DDDF400585BC3 /* Paste Amendment Extension */;
 			targetProxy = 173EB556307DDDF400585BC3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -432,7 +432,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Allow Paste Extension/Info.plist";
+				INFOPLIST_FILE = "Paste Amendment Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Paste Amendment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -441,7 +441,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -466,7 +466,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Allow Paste Extension/Info.plist";
+				INFOPLIST_FILE = "Paste Amendment Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Paste Amendment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,7 +475,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -504,7 +504,7 @@
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Allow Paste/Info.plist";
+				INFOPLIST_FILE = "Paste Amendment/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Paste Amendment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -513,7 +513,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -545,7 +545,7 @@
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Allow Paste/Info.plist";
+				INFOPLIST_FILE = "Paste Amendment/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Paste Amendment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -554,7 +554,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -576,7 +576,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		173EB534307DDDF300585BC3 /* Build configuration list for PBXProject "Allow Paste" */ = {
+		173EB534307DDDF300585BC3 /* Build configuration list for PBXProject "Paste Amendment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				173EB55C307DDDF400585BC3 /* Debug */,
@@ -585,7 +585,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		173EB55E307DDDF400585BC3 /* Build configuration list for PBXNativeTarget "Allow Paste Extension" */ = {
+		173EB55E307DDDF400585BC3 /* Build configuration list for PBXNativeTarget "Paste Amendment Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				173EB55F307DDDF400585BC3 /* Debug */,
@@ -594,7 +594,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		173EB562307DDDF400585BC3 /* Build configuration list for PBXNativeTarget "Allow Paste" */ = {
+		173EB562307DDDF400585BC3 /* Build configuration list for PBXNativeTarget "Paste Amendment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				173EB563307DDDF400585BC3 /* Debug */,

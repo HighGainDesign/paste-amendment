@@ -1,6 +1,6 @@
 //
 //  SafariWebExtensionHandler.swift
-//  Allow Paste Extension
+//  Paste Amendment Extension
 //
 //  Created by Anand Mandapati on 10/12/26.
 //

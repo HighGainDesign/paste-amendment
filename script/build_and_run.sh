@@ -6,8 +6,14 @@ case "$MODE" in run|--build-only|--verify) ;; *) echo "Usage: $0 [--build-only|-
 SIGNING_IDENTITY="${PASTE_AMENDMENT_SIGNING_IDENTITY:?Set PASTE_AMENDMENT_SIGNING_IDENTITY to your Developer ID Application identity}"
 TEAM_ID="${PASTE_AMENDMENT_TEAM_ID:?Set PASTE_AMENDMENT_TEAM_ID to your Apple developer team ID}"
 NOTARY_PROFILE="${PASTE_AMENDMENT_NOTARY_PROFILE:-}"
+NOTARY_KEYCHAIN="${PASTE_AMENDMENT_NOTARY_KEYCHAIN:-}"
+NOTARY_TIMEOUT="${PASTE_AMENDMENT_NOTARY_TIMEOUT:-15m}"
+VERSION="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$ROOT_DIR/extension/manifest.json")"
+[[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo 'Use a numeric X.Y.Z manifest version.' >&2; exit 2; }
+NOTARY_ARGS=(--keychain-profile "$NOTARY_PROFILE")
+if [[ -n "$NOTARY_KEYCHAIN" ]]; then NOTARY_ARGS+=(--keychain "$NOTARY_KEYCHAIN"); fi
 mkdir -p "$ROOT_DIR/output"
-BUILD_DIR="$(mktemp -d /private/tmp/allow-paste-build.XXXXXX)"
+BUILD_DIR="$(mktemp -d /private/tmp/paste-amendment-build.XXXXXX)"
 APP="$BUILD_DIR/Build/Products/Release/Paste Amendment.app"
 LSREGISTER=/System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/LaunchServices.framework/Versions/Current/Support/lsregister
 cleanup() {
@@ -23,13 +29,13 @@ cleanup() {
 }
 trap cleanup EXIT
 if [[ "$MODE" != --build-only ]]; then pkill -x 'Paste Amendment' >/dev/null 2>&1 || true; fi
-if ! xcodebuild -project "$ROOT_DIR/macos/Allow Paste/Allow Paste.xcodeproj" \
-  -scheme 'Allow Paste' -configuration Release -destination 'generic/platform=macOS' \
+if ! xcodebuild -project "$ROOT_DIR/macos/Paste Amendment/Paste Amendment.xcodeproj" \
+  -scheme 'Paste Amendment' -configuration Release -destination 'generic/platform=macOS' \
   -derivedDataPath "$BUILD_DIR" \
   CODE_SIGN_IDENTITY="$SIGNING_IDENTITY" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$TEAM_ID" \
   OTHER_CODE_SIGN_FLAGS=--timestamp CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO \
   CODE_SIGN_ENTITLEMENTS="$ROOT_DIR/Signing.entitlements" \
-  MARKETING_VERSION=1.0.1 CURRENT_PROJECT_VERSION=2 \
+  MARKETING_VERSION="$VERSION" CURRENT_PROJECT_VERSION="${PASTE_AMENDMENT_BUILD_NUMBER:-2}" \
   MACOSX_DEPLOYMENT_TARGET=13.0 build > "$ROOT_DIR/output/build.log" 2>&1; then
   tail -60 "$ROOT_DIR/output/build.log" >&2
   exit 1
@@ -38,7 +44,7 @@ codesign --verify --deep --strict "$APP"
 if [[ -n "$NOTARY_PROFILE" ]]; then
   ditto -c -k --keepParent --norsrc --noextattr "$APP" "$BUILD_DIR/Paste Amendment-notary.zip"
   xcrun notarytool submit "$BUILD_DIR/Paste Amendment-notary.zip" \
-    --keychain-profile "$NOTARY_PROFILE" --wait --timeout 5m \
+    "${NOTARY_ARGS[@]}" --wait --timeout "$NOTARY_TIMEOUT" \
     > "$ROOT_DIR/output/notarization.log" 2>&1
   cat "$ROOT_DIR/output/notarization.log"
   if ! /usr/bin/grep -q 'status: Accepted' "$ROOT_DIR/output/notarization.log"; then
@@ -59,7 +65,7 @@ hdiutil create -volname 'Paste Amendment' -srcfolder "$BUILD_DIR/dmg" -fs HFS+ -
 codesign --sign "$SIGNING_IDENTITY" --timestamp "$DMG"
 codesign --verify --strict "$DMG"
 if [[ -n "$NOTARY_PROFILE" ]]; then
-  xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait --timeout 5m \
+  xcrun notarytool submit "$DMG" "${NOTARY_ARGS[@]}" --wait --timeout "$NOTARY_TIMEOUT" \
     > "$ROOT_DIR/output/dmg-notarization.log" 2>&1
   cat "$ROOT_DIR/output/dmg-notarization.log"
   if ! /usr/bin/grep -q 'status: Accepted' "$ROOT_DIR/output/dmg-notarization.log"; then

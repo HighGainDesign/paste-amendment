@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Paste Amendment test</title>
+<style>
+body { font: 16px system-ui; max-width: 760px; margin: 40px auto; padding: 20px; }
+label { display: block; margin: 18px 0; }
+input, textarea, [contenteditable] { display: block; padding: 10px; width: 90%; border: 1px solid #777; }
+iframe { width: 100%; height: 100px; }
+</style>
+<h1>Paste Amendment test</h1>
+<p>Copy “Paste works ✓” from the first field, then paste into the other fields.</p>
+<label>Copy source<input id="source" value="Paste works ✓"></label>
+<label>Inline paste blocker<input id="inline" onpaste="event.preventDefault()"></label>
+<label>Window capture blocker<textarea id="capture"></textarea></label>
+<label>Before-input blocker<input id="beforeinput"></label>
+<label>Keyboard blocker<input id="keyboard"></label>
+<label>Password paste blocker<input id="password" type="password" onpaste="return false"></label>
+<label>Normal field<input id="normal"></label>
+<label>Read-only field<input id="readonly" value="Read only" readonly></label>
+<label>Disabled field<input id="disabled" value="Disabled" disabled></label>
+<label>Checkbox<input id="checkbox" type="checkbox"></label>
+<label>Contenteditable<div id="editable" contenteditable="true" onpaste="event.preventDefault()"></div></label>
+<label>Non-editable island<div id="island" contenteditable="true"><span id="noneditable" contenteditable="false" tabindex="0">Not editable</span></div></label>
+<label>Open shadow input<div id="shadow"></div></label>
+<label>Dynamic field<div id="dynamic"></div></label>
+<iframe title="Frame input" src="frame.html"></iframe>
+<script>
+window.inputEvents = 0;
+document.addEventListener('input', () => window.inputEvents++);
+window.addEventListener('paste', event => {
+  if (event.target.id === 'capture') event.preventDefault();
+}, true);
+document.querySelector('#beforeinput').addEventListener('beforeinput', event => {
+  if (event.inputType.startsWith('insertFromPaste')) event.preventDefault();
+});
+document.querySelector('#keyboard').addEventListener('keydown', event => {
+  if (event.key.toLowerCase() === 'v' && (event.metaKey || event.ctrlKey)) event.preventDefault();
+});
+const shadow = document.querySelector('#shadow').attachShadow({ mode: 'open' });
+shadow.innerHTML = '<input id="shadowed" onpaste="event.preventDefault()" aria-label="Shadow input">';
+setTimeout(() => {
+  document.querySelector('#dynamic').innerHTML = '<input id="added" onpaste="event.preventDefault()" aria-label="Dynamic input">';
+}, 0);
+</script>
+</html>

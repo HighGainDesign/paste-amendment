@@ -1,0 +1,5 @@
+Built-in image generation; no reference image.
+
+Use case: logo-brand. One polished macOS utility app icon for a Safari extension that restores pasting. Square composition, centered large ivory-white clipboard with a mint-green arrow flowing into it through an open gap. Deep teal background with gentle luminous gradient, crisp dimensional edges and subtle highlights. Legible at 32 pixels. No words, letters, Safari logo, surrounding scene, mockup, multiple icons, or watermark. Full square background, simple distinctive silhouette.
+
+Master: assets/icon-master.png. App asset catalog sizes and extension PNG sizes are derived using sips.

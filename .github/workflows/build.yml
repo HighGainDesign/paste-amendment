@@ -1,0 +1,34 @@
+name: Build app platforms
+on:
+  push:
+    branches: [main]
+    paths: ['ios/**', 'macos/**', 'extension/**', 'Signing.entitlements', 'LICENSE', '.github/workflows/build.yml']
+  pull_request:
+    paths: ['ios/**', 'macos/**', 'extension/**', 'Signing.entitlements', 'LICENSE', '.github/workflows/build.yml']
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        include:
+          - platform: ios
+            destination: generic/platform=iOS Simulator
+          - platform: macos
+            destination: generic/platform=macOS
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build app and Safari extension
+        env:
+          BUILD_PLATFORM: ${{ matrix.platform }}
+          BUILD_DESTINATION: ${{ matrix.destination }}
+        run: |
+          set -euo pipefail
+          xcodebuild -project "$BUILD_PLATFORM/Paste Amendment/Paste Amendment.xcodeproj" \
+            -scheme 'Paste Amendment' -configuration Debug -destination "$BUILD_DESTINATION" \
+            -derivedDataPath "$RUNNER_TEMP/build" CODE_SIGNING_ALLOWED=NO build > "$RUNNER_TEMP/build.log" 2>&1 \
+            || { tail -60 "$RUNNER_TEMP/build.log"; exit 1; }

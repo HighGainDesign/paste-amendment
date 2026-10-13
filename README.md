@@ -1,10 +1,12 @@
 # Paste Amendment
 
-Paste into websites that block it. A Safari extension for Mac that restores normal pasting in text fields, password fields, and text areas.
+Paste into websites that block it. A Safari extension that restores normal pasting in text fields, password fields, and text areas.
 
 ![Paste Amendment icon](assets/icon-preview.png)
 
-## Install and use
+## Mac
+
+Install and use:
 
 1. [Download the DMG](https://github.com/HighGainDesign/paste-amendment/releases/latest).
 2. Open it and drag **Paste Amendment** into **Applications**.
@@ -14,5 +16,9 @@ Paste into websites that block it. A Safari extension for Mac that restores norm
 Requires macOS 13 or newer. You do **not** need to enable unsigned extensions.
 
 Your clipboard contents are never read, saved, or uploaded by the extension. If a custom editor behaves unexpectedly, turn off Paste Amendment for that website. Readonly fields stay readonly.
+
+## iPhone and iPad
+
+An iPhone/iPad version is in TestFlight testing before its App Store release. After installing the beta, open Settings, find Safari, then choose Extensions. Enable Paste Amendment, allow access to your chosen websites, and refresh the webpage before pasting. Requires iOS/iPadOS 15 or newer.
 
 [MIT license](LICENSE) · [Contributing](CONTRIBUTING.md)

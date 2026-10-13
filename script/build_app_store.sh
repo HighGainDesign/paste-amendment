@@ -14,8 +14,8 @@ esac
 BUILD_DIR="$(mktemp -d /private/tmp/paste-amendment-store.XXXXXX)"
 OUTPUT_DIR="$ROOT_DIR/output/appstore/$PLATFORM"
 mkdir -p "$OUTPUT_DIR"
-PLATFORM_ARGS=()
-if [[ "$PLATFORM" == macos ]]; then PLATFORM_ARGS+=(MACOSX_DEPLOYMENT_TARGET=13.0); fi
+PLATFORM_ARGS=(IPHONEOS_DEPLOYMENT_TARGET=15.0)
+if [[ "$PLATFORM" == macos ]]; then PLATFORM_ARGS=(MACOSX_DEPLOYMENT_TARGET=13.0); fi
 cleanup() {
   if [[ "$PLATFORM" == macos ]]; then
     for app in "$BUILD_DIR/archive.xcarchive/Products/Applications/Paste Amendment.app" "$BUILD_DIR/derived/Build/Intermediates.noindex/ArchiveIntermediates/Paste Amendment/InstallationBuildProductsLocation/Applications/Paste Amendment.app"; do

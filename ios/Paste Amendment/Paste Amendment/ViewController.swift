@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 final class ViewController: UIViewController {
     override func viewDidLoad() {
@@ -37,7 +38,17 @@ final class ViewController: UIViewController {
         addLabel("Paste Amendment", style: .largeTitle, to: stack, heading: true)
         addLabel("Paste into websites that block it.", style: .title3, to: stack)
         addLabel("Enable in Safari", style: .title2, to: stack, heading: true)
-        addLabel("1. Open Settings, find Safari, then choose Extensions.", style: .body, to: stack)
+        let settings = UIButton(type: .system)
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "Open Safari Settings"
+        configuration.image = UIImage(systemName: "gearshape")
+        configuration.imagePadding = 8
+        if #unavailable(iOS 26.2) { configuration.title = "Show Safari setup steps" }
+        settings.configuration = configuration
+        settings.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
+        settings.addTarget(self, action: #selector(openSafariSettings), for: .touchUpInside)
+        stack.addArrangedSubview(settings)
+        addLabel("1. " + settingsPath, style: .body, to: stack)
         addLabel("2. Turn on Paste Amendment and allow access to the websites where you want it.", style: .body, to: stack)
         addLabel("3. Return to Safari, refresh the webpage, then touch and hold a text field and choose Paste.", style: .body, to: stack)
         addLabel("You can also paste with ⌘V when using a keyboard.", style: .body, to: stack)
@@ -61,6 +72,32 @@ final class ViewController: UIViewController {
         if style == .footnote { label.textColor = .secondaryLabel }
         if heading { label.accessibilityTraits.insert(.header) }
         stack.addArrangedSubview(label)
+    }
+
+    private var settingsPath: String {
+        if #available(iOS 18.0, *) {
+            return "Open Settings → Apps → Safari → Extensions."
+        }
+        return "Open Settings → Safari → Extensions."
+    }
+
+    @objc private func openSafariSettings() {
+        if #available(iOS 26.2, *) {
+            SFSafariSettings.openExtensionsSettings(forIdentifiers: ["design.highgain.pasteamendment.Extension"]) { [weak self] error in
+                if error != nil { self?.showSettingsInstructions(couldNotOpen: true) }
+            }
+        } else {
+            showSettingsInstructions(couldNotOpen: false)
+        }
+    }
+
+    private func showSettingsInstructions(couldNotOpen: Bool) {
+        let explanation = couldNotOpen
+            ? "Safari settings could not be opened automatically. "
+            : "This iOS version requires opening Safari settings manually. "
+        let alert = UIAlertController(title: "Enable Paste Amendment", message: explanation + settingsPath + " Then turn on Paste Amendment and allow website access.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     @objc private func showLicense() {

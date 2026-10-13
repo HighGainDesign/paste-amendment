@@ -15,4 +15,4 @@ Requires macOS 13 or newer. You do **not** need to enable unsigned extensions.
 
 Your clipboard contents are never read, saved, or uploaded by the extension. If a custom editor behaves unexpectedly, turn off Paste Amendment for that website. Readonly fields stay readonly.
 
-[MIT license](LICENSE) · [Contributing](CONTRIBUTING.mod)
+[MIT license](LICENSE) · [Contributing](CONTRIBUTING.md)

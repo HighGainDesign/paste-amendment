@@ -1,5 +1,7 @@
 # Privacy Policy
 
+The [High Gain Design privacy policy](https://highgain.design/privacy.html) applies to Paste Amendment. The app-specific details are below.
+
 Paste Amendment does not collect personal data.
 
 The app and Safari extension do not collect, save, or upload clipboard contents, browsing history, website addresses, or webpage contents. They do not read your clipboard. They have no accounts, advertising, analytics, tracking, or developer-operated servers.

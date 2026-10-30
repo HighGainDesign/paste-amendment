@@ -8,10 +8,11 @@ Paste into websites that block it. A Safari extension that restores normal pasti
 
 Install and use:
 
-1. [Download the DMG](https://github.com/HighGainDesign/paste-amendment/releases/latest).
-2. Open it and drag **Paste Amendment** into **Applications**.
-3. Open the app once, then go to **Safari → Settings → Extensions**. Enable **Paste Amendment** and allow access to the websites where you want it.
-4. Refresh the webpage and paste normally with **⌘V** or **Edit → Paste**.
+1. [Get Paste Amendment free on the Mac App Store](https://apps.apple.com/app/id6822161646).
+2. Open the app once, then go to **Safari → Settings → Extensions**. Enable **Paste Amendment** and allow access to the websites where you want it.
+3. Refresh the webpage and paste normally with **⌘V** or **Edit → Paste**.
+
+You can also [download the DMG from GitHub](https://github.com/HighGainDesign/paste-amendment/releases/latest), open it, and drag **Paste Amendment** into **Applications**.
 
 Requires macOS 13 or newer. You do **not** need to enable unsigned extensions.
 
@@ -19,6 +20,6 @@ Your clipboard contents are never read, saved, or uploaded by the extension. If 
 
 ## iPhone and iPad
 
-An iPhone/iPad version is in TestFlight testing before its App Store release. After installing the beta, open Settings, find Safari, then choose Extensions. Enable Paste Amendment, allow access to your chosen websites, and refresh the webpage before pasting. Requires iOS/iPadOS 15 or newer.
+The iPhone/iPad version is awaiting App Store approval. TestFlight testers can follow the app's setup instructions to enable Paste Amendment, allow access to chosen websites, and refresh the webpage before pasting. Requires iOS/iPadOS 15 or newer.
 
 [MIT license](LICENSE) · [Contributing](CONTRIBUTING.md)
